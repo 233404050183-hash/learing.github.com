@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký tài khoản</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg,#0d6efd,#6ea8fe);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin:0;
+        }
+
+        .register-box{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            width:400px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:25px;
+            color:#0d6efd;
+        }
+
+        .input-group{
+            margin-bottom:15px;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:5px;
+            font-weight:500;
+        }
+
+        .input-group input, .input-group select{
+            width:100%;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            outline:none;
+        }
+
+        .input-group input:focus{
+            border-color:#0d6efd;
+        }
+
+        .btn{
+            width:100%;
+            padding:12px;
+            background:#0d6efd;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-weight:500;
+            cursor:pointer;
+            margin-top:10px;
+        }
+
+        .btn:hover{
+            background:#0b5ed7;
+        }
+
+        .link{
+            text-align:center;
+            margin-top:15px;
+        }
+
+        .link a{
+            color:#0d6efd;
+            text-decoration:none;
+        }
+
+        .error{
+            color:red;
+            font-size:13px;
+            margin-top:5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-box">
+    <h2>Đăng ký tài khoản</h2>
+
+    <form onsubmit="return register()">
+        
+        <div class="input-group">
+            <label>Họ tên</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="email" required>
+        </div>
+
+        <div class="input-group">
+            <label>Mã số (SV/GV)</label>
+            <input type="text" id="id" required>
+        </div>
+
+        <div class="input-group">
+            <label>Mật khẩu</label>
+            <input type="password" id="password" required>
+        </div>
+
+        <div class="input-group">
+            <label>Nhập lại mật khẩu</label>
+            <input type="password" id="confirmPassword" required>
+            <div class="error" id="error"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Vai trò</label>
+            <select id="role">
+                <option value="student">Sinh viên</option>
+                <option value="teacher">Giảng viên</option>
+            </select>
+        </div>
+
+        <button class="btn">Đăng ký</button>
+    </form>
+
+    <div class="link">
+        Đã có tài khoản? <a href="dangnhap.html">Đăng nhập</a>
+    </div>
+</div>
+
+<script>
+function register(){
+    let password = document.getElementById("password").value;
+    let confirm = document.getElementById("confirmPassword").value;
+    let error = document.getElementById("error");
+
+    if(password !== confirm){
+        error.innerText = "Mật khẩu không khớp!";
+        return false;
+    }
+
+    // Tạo object user
+    let user = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        id: document.getElementById("id").value,
+        password: password,
+        role: document.getElementById("role").value
+    };
+
+    // Lưu vào localStorage
+    localStorage.setItem(user.id, JSON.stringify(user));
+
+    alert("Đăng ký thành công!");
+
+    // 👉 CHUYỂN SANG TRANG ĐĂNG NHẬP
+    window.location.href = "dangnhap.html";
+
+    return false;
+}
+</script>
+
+</body>
+</html>

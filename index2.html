@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu - LMS Học liệu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==============================
+           1. CSS Variables & Reset
+           ============================== */
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #0d47a1;
+            --success-color: #2ed184;
+            --warning-color: #ffbd1e;
+            --text-color: #333;
+            --text-muted: #6c757d;
+            --bg-light: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --radius: 12px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            --sidebar-width: 260px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* ==============================
+           2. Layout Structure
+           ============================== */
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Sidebar (Cố định bên trái) */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .nav-links li {
+            margin-bottom: 12px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #f0f7ff;
+            color: var(--primary-color);
+        }
+
+        .nav-links li.active a {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-links a .icon {
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        /* Main Content (Bên phải) */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 60px 80px;
+        }
+
+        /* ==============================
+           3. Giới thiệu Sections
+           ============================== */
+        .intro-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .intro-header h1 {
+            font-size: 42px;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .intro-header p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            color: var(--secondary-color);
+            font-size: 28px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Benefits Grid */
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefit-card.teacher { border-top: 5px solid var(--primary-color); }
+        .benefit-card.student { border-top: 5px solid var(--success-color); }
+        .benefit-card.school { border-top: 5px solid var(--warning-color); }
+
+        .benefit-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .benefit-card ul {
+            list-style: none;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .benefit-card li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .benefit-card li::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Info Grid (Image + Text) */
+        .info-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .info-split img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #f1f3f5;
+            padding: 30px 80px;
+            border-top: 1px solid var(--border-color);
+            margin-left: var(--sidebar-width);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .benefit-grid { grid-template-columns: 1fr; }
+            .info-split { grid-template-columns: 1fr; }
+            .main-content { padding: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <nav class="sidebar">
+            <a href="#" class="logo">LMS Học liệu</a>
+            <ul class="nav-links">
+                <li><a href="Trangchusinhvien.html"><span class="icon">📚</span>Giới thiệu</a></li>
+                <li class="active"><a href="gioithieu.html"><span class="icon">📚</span>Giới thiệu</a></li>
+                <li><a href="#"><span class="icon">📝</span>Học tập</a></li>
+                <li><a href="#"><span class="icon">📊</span>Bài test</a></li>
+                <li><a href="#"><span class="icon">👤</span>Tài khoản</a></li>
+            </ul>
+            <a href="#" style="text-decoration: none; color: #dc3545; font-weight: 500; margin-top: auto; display: flex; align-items: center;">
+                <span class="icon" style="margin-right: 10px;">↪️</span>Đăng xuất
+            </a>
+        </nav>
+
+        <main class="main-content">
+            
+            <section class="intro-header">
+                <h1>Chào mừng đến với LMS Học liệu</h1>
+                <p>Nền tảng số hóa giáo dục hàng đầu, mang đến giải pháp quản lý học tập thông minh, linh hoạt và tối ưu hiệu suất cho thế hệ mới.</p>
+            </section>
+
+            <section class="content-card">
+                <h2 class="section-title">Nền tảng của chúng tôi là gì?</h2>
+                <p style="line-height: 1.8; color: #444; font-size: 16px;">
+                    <strong>LMS Học liệu</strong> là một hệ thống quản lý học tập (Learning Management System) thế hệ mới, được thiết kế để giải quyết những thách thức của giáo dục hiện đại. Chúng tôi cung cấp một không gian số tập trung, nơi giáo viên có thể sáng tạo bài giảng sinh động, và học sinh có thể tiếp cận kiến thức mọi lúc, mọi nơi.
+                </p>
+                <p style="line-height: 1.8; color: #444; font-size: 16px; margin-top: 15px;">
+                    Với sự tích hợp của công nghệ đám mây và phân tích dữ liệu, nền tảng không chỉ lưu trữ học liệu mà còn giúp cá nhân hóa lộ trình học tập, đảm bảo không ai bị bỏ lại phía sau trong hành trình chinh phục tri thức.
+                </p>
+            </section>
+
+            <h2 style="text-align: center; color: var(--secondary-color); margin-bottom: 30px;">Lợi ích vượt trội</h2>
+            <div class="benefit-grid">
+                
+                <div class="benefit-card teacher">
+                    <div class="benefit-icon">👨‍🏫</div>
+                    <h3>Dành cho Giáo viên</h3>
+                    <ul>
+                        <li><strong>Số hóa bài giảng:</strong> Dễ dàng biến các tài liệu truyền thống thành bài giảng tương tác hấp dẫn.</li>
+                        <li><strong>Tự động hóa:</strong> Hệ thống tự động chấm điểm bài tập trắc nghiệm, giảm 70% khối lượng công việc hành chính.</li>
+                        <li><strong>Theo dõi sát sao:</strong> Hệ thống báo cáo trực quan giúp giáo viên nhận diện ngay lập tức những học sinh cần hỗ trợ.</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card student">
+                    <div class="benefit-icon">🎓</div>
+                    <h3>Dành cho Học sinh</h3>
+                    <ul>
+                        <li><strong>Học tập linh hoạt:</strong> Tự chủ thời gian và tốc độ học tập phù hợp với khả năng cá nhân.</li>
+                        <li><strong>Kho tài liệu khổng lồ:</strong> Truy cập vào thư viện video, sách điện tử và bài tập mẫu 24/7.</li>
+                        <li><strong>Tương tác tức thời:</strong> Nhận kết quả bài làm và phản hồi từ giáo viên ngay lập tức sau khi nộp bài.</li>
+                    </ul>
+                </div>
+
+                <div class="benefit-card school">
+                    <div class="benefit-icon">🏫</div>
+                    <h3>Dành cho Nhà trường</h3>
+                    <ul>
+                        <li><strong>Quản lý tập trung:</strong> Đồng bộ dữ liệu toàn trường trên một nền tảng duy nhất, dễ dàng quản lý nhân sự và học viên.</li>
+                        <li><strong>Tối ưu chi phí:</strong> Tiết kiệm tối đa chi phí in ấn tài liệu và vận hành cơ sở vật chất vật lý.</li>
+                        <li><strong>Bảo mật thông tin:</strong> Hệ thống mã hóa dữ liệu chuẩn quốc tế, đảm bảo an toàn tuyệt đối thông tin người dùng.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="info-split">
+                <div class="info-text">
+                    <h2 class="section-title">Tầm nhìn chiến lược</h2>
+                    <p style="line-height: 1.8; color: #555; margin-bottom: 20px;">
+                        Chúng tôi hướng tới việc xây dựng một cộng đồng học tập trực tuyến năng động, nơi công nghệ xóa nhòa mọi rào cản về địa lý và kinh tế. Đến năm 2026, LMS Học liệu đặt mục tiêu hỗ trợ hơn 1 triệu người dùng trên toàn quốc, góp phần thúc đẩy chuyển đổi số giáo dục Việt Nam.
+                    </p>
+                    <p style="line-height: 1.8; color: #555;">
+                        Mọi tính năng mới được phát triển đều dựa trên phản hồi của người dùng, nhằm tạo ra một công cụ thực sự "Vì con người".
+                    </p>
+                </div>
+                <div class="info-image">
+                    <img src="https://images.ulsa2" alt="Học tập cùng nhau">
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div>
+            &copy; 2026 <strong>LMS Học liệu</strong>. Tất cả các quyền được bảo lưu.
+        </div>
+        <div style="display: flex; gap: 30px;">
+            <a href="#" style="color: var(--text-muted); text-decoration: none;">Về chúng tôi</a>
+            <a href="#" style="color: var(--text-muted); text-decoration: none;">Hỗ trợ kỹ thuật</a>
+            <a href="#" style="color: var(--text-muted); text-decoration: none;">Chính sách bảo mật</a>
+        </div>
+    </footer>
+
+</body>
+</html>
